@@ -1,4 +1,5 @@
 const { Employee } = require('../models');
+const { getWorkedHours } = require('../utils/helpers');
 
 /**
  * Create a employee
@@ -32,8 +33,28 @@ const getEmployeeById = async (id) => {
   return Employee.findById(id);
 };
 
+const calculateSalary = (punches, hourlyPrice) => {
+  const workedHours = getWorkedHours(punches);
+  return workedHours * hourlyPrice;
+};
+
+/**
+ * Get employee salary by id and month
+ * @param {ObjectId} id
+ * @param {number} month
+ * @returns {Salary}
+ */
+const getEmployeeSalaryByMonth = async (id, month) => {
+  const employee = Employee.findById(id);
+  const monthPunches = employee.getMonthPunches(month);
+  const hourlyPrice = employee.getHourlyAditionalPrice();
+  const salary = calculateSalary(monthPunches, hourlyPrice);
+  return salary;
+};
+
 module.exports = {
   createEmployee,
   queryEmployees,
   getEmployeeById,
+  getEmployeeSalaryByMonth,
 };

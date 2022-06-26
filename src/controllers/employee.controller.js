@@ -24,8 +24,17 @@ const getEmployee = catchAsync(async (req, res) => {
   res.send(employee);
 });
 
+const getSalary = catchAsync(async (req, res) => {
+  const salary = await employeeService.getEmployeeSalaryByMonth(req.params.employeeId, req.query.month);
+  if (!salary) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Salary not found');
+  }
+  res.send(salary);
+});
+
 module.exports = {
   createEmployee,
   getEmployees,
   getEmployee,
+  getSalary,
 };

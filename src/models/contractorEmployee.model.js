@@ -1,7 +1,6 @@
 const ContractorEmployee = {
-  async calculateMonthSalary(monthHours) {
-    console.log(monthHours);
-    return 5 * 2;
+  async getAditionalPrice(employee) {
+    return employee.hourlyPrice * 0.2;
   },
 };
 

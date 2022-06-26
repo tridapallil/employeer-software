@@ -15,4 +15,8 @@ router
   .route('/:employee')
   .get(auth('getEmployees'), validate(employeeValidation.getEmployee), employeeController.getEmployee);
 
+router
+  .route('/:employee/get-salary')
+  .get(auth('getEmployees'), validate(employeeValidation.getSalary), employeeController.getSalary);
+
 module.exports = router;

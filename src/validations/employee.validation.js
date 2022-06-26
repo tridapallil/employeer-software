@@ -19,6 +19,12 @@ const getEmployees = {
   }),
 };
 
+const getSalary = {
+  query: Joi.object().keys({
+    month: Joi.number().required(),
+  }),
+};
+
 const getEmployee = {
   params: Joi.object().keys({
     employeeId: Joi.string().custom(objectId),
@@ -29,4 +35,5 @@ module.exports = {
   createEmployee,
   getEmployees,
   getEmployee,
+  getSalary,
 };

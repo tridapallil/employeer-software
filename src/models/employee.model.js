@@ -41,13 +41,12 @@ const employeeType = {
   contractor: ContractorEmployee,
 };
 
-employeeSchema.methods.getMonthHours = async function (month) {
+employeeSchema.methods.getMonthPunches = async function (month) {
   return Punch.find({ employeeId: this._id, $expr: { $eq: [{ $month: '$createdAt' }, month] } });
 };
 
-employeeSchema.methods.getHoursAndCalculateSalary = async function (month) {
-  const monthHours = await this.getMonthHours(month);
-  return employeeType[this.contractType].calculateSalary(monthHours);
+employeeSchema.methods.getHourlyAditionalPrice = async function () {
+  return employeeType[this.contractType].getAditionalPrice(this);
 };
 
 /**
