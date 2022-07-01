@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose');
 const Punch = require('./punch.model');
 const { contractsTypes } = require('../config/contracts');
 const ContractorEmployee = require('./contractorEmployee.model');
+const { toJSON, paginate } = require('./plugins');
 
 const employeeSchema = Schema(
   {
@@ -36,6 +37,10 @@ const employeeSchema = Schema(
     timestamps: true,
   }
 );
+
+// add plugin that converts mongoose to json
+employeeSchema.plugin(toJSON);
+employeeSchema.plugin(paginate);
 
 const employeeType = {
   contractor: ContractorEmployee,

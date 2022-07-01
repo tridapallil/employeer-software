@@ -25,7 +25,7 @@ const getEmployee = catchAsync(async (req, res) => {
 });
 
 const getSalary = catchAsync(async (req, res) => {
-  const salary = await employeeService.getEmployeeSalaryByMonth(req.params.employeeId, req.query.month);
+  const salary = await employeeService.getEmployeeSalaryByMonth(req.user._id, req.query.month);
   if (!salary) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Salary not found');
   }

@@ -3,9 +3,8 @@ const { chunk, sum } = require('lodash');
 
 /**
  * Create an object composed of the picked object properties
- * @param {Object} object
- * @param {string[]} keys
- * @returns {Object}
+ * @param {Array} punches
+ * @returns {number}
  */
 const getWorkedHours = (punches) => {
   const punchesByDay = [];

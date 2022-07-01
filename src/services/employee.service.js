@@ -33,6 +33,12 @@ const getEmployeeById = async (id) => {
   return Employee.findById(id);
 };
 
+/**
+ *
+ * @param {Array} punches
+ * @param {number} hourlyPrice
+ * @returns {Number}
+ */
 const calculateSalary = (punches, hourlyPrice) => {
   const workedHours = getWorkedHours(punches);
   return workedHours * hourlyPrice;
@@ -45,8 +51,13 @@ const calculateSalary = (punches, hourlyPrice) => {
  * @returns {Salary}
  */
 const getEmployeeSalaryByMonth = async (id, month) => {
-  const employee = Employee.findById(id);
-  const monthPunches = employee.getMonthPunches(month);
+  // const employee = await getEmployeeById(id);
+  console.log(Employee);
+  const employee = await Employee.findOne({ _id: id });
+
+  console.log(employee);
+  const monthPunches = await employee.getMonthPunches(month);
+  console.log(monthPunches);
   const hourlyPrice = employee.getHourlyAditionalPrice();
   const salary = calculateSalary(monthPunches, hourlyPrice);
   return salary;
